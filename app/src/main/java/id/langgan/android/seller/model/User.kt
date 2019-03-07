@@ -27,4 +27,8 @@ class User {
     @SerializedName("updated_at")
     @Expose
     var updatedAt: String? = null
+
+    @SerializedName("created_at")
+    @Expose
+    var createdAt: String? = null
 }
