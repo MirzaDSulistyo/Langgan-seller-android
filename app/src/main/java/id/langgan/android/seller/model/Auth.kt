@@ -5,10 +5,11 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import id.langgan.android.seller.data.database.converter.StoreListTypeConverter
 import id.langgan.android.seller.data.database.converter.UserTypeConverter
 
 @Entity
-@TypeConverters(UserTypeConverter::class)
+@TypeConverters(UserTypeConverter::class, StoreListTypeConverter::class)
 class Auth {
     @SerializedName("auth")
     @Expose
@@ -23,7 +24,11 @@ class Auth {
     @Expose
     var token: String? = null
 
-    @SerializedName("data")
+    @SerializedName("user")
     @Expose
     var user: User? = null
+
+    @SerializedName("store")
+    @Expose
+    var stores: List<Store>? = null
 }

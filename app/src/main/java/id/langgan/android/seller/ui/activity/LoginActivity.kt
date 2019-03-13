@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity(), HasSupportFragmentInjector {
             val email = email.text.toString()
             val pass = password.text.toString()
 
-            viewModel.login(email, pass)
+            viewModel.loginOwner(email, pass)
                 .observe(this, Observer<Resource<Auth>> {
                     if (it.status == Status.SUCCESS) {
                         Timber.d("auth token : %s", it.data?.token)

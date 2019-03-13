@@ -22,6 +22,8 @@ import id.langgan.android.seller.BuildConfig
 import id.langgan.android.seller.R
 import id.langgan.android.seller.di.Injectable
 import id.langgan.android.seller.model.Auth
+import id.langgan.android.seller.ui.fragment.ProductFragment
+import id.langgan.android.seller.ui.fragment.ProductTabFragment
 import id.langgan.android.seller.ui.fragment.ProfileFragment
 import id.langgan.android.seller.utility.ColorGenerator
 import id.langgan.android.seller.utility.Helper
@@ -80,6 +82,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
             val auth = Gson().fromJson(prefs.user, Auth::class.java)
             Timber.d("user : %s", auth.token)
             Timber.d("user : %s", auth.user?.email)
+            Timber.d("user stores : %s", auth.stores?.size)
         }
 
         // Handle Toolbar
@@ -182,7 +185,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
                     }
                     NAV_MENU_PRODUCT -> {
                         supportActionBar!!.title = getString(R.string.product)
-                        val fragment = ProfileFragment.newInstance()
+                        val fragment = ProductTabFragment.newInstance()
                         supportFragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()
 
                         currentFragment = fragment

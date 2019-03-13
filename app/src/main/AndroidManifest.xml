@@ -25,6 +25,14 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
+                android:name=".ui.activity.FormBoxActivity"
+                android:theme="@style/AppTheme.Fullscreen">
+        </activity>
+        <activity
+                android:name=".ui.activity.FormProductActivity"
+                android:theme="@style/MaterialDrawerTheme.Light">
+        </activity>
+        <activity
                 android:name=".ui.activity.RegisterActivity"
                 android:theme="@style/AppTheme.Fullscreen">
         </activity>

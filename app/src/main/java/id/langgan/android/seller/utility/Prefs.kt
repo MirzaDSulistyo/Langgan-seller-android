@@ -22,9 +22,19 @@ class Prefs {
         editor?.apply()
     }
 
+    fun putStores(data: String) {
+        val storesPrefs = context?.getSharedPreferences(PREF_STORES, Context.MODE_PRIVATE)
+        val editor = storesPrefs?.edit()
+        editor?.putString(PREF_STORES_KEY, data)
+        editor?.apply()
+    }
+
     companion object {
         const val PREF_AUTH = "pref:auth"
         const val PREF_AUTH_KEY = "auth"
+
+        const val PREF_STORES = "pref:stores"
+        const val PREF_STORES_KEY = "stores"
     }
 
 }

@@ -17,6 +17,10 @@ class UserViewModel
         return userRepository.login(email, pass)
     }
 
+    fun loginOwner(email: String, pass: String): LiveData<Resource<Auth>> {
+        return userRepository.loginOwner(email, pass)
+    }
+
     fun register(first: String, last: String, email: String, pass: String, name: String): LiveData<Resource<Owner>> {
         return userRepository.register(first, last, email, pass, name)
     }

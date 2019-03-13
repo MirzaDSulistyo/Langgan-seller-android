@@ -5,4 +5,12 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="black">#111111</color>
+
+    <color name="tab_active_text">#00B082</color>
+    <color name="tab_active_underline">#00D79E</color>
+
+    <color name="black_33">#333333</color>
+
+    <color name="theme_blue">#1a73e8</color>
 </resources>

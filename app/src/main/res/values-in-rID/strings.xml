@@ -24,4 +24,8 @@
     <string name="sign_in">Sign in</string>
     <string name="login">Login</string>
     <string name="don_t_have_an_account">Don’t have an account?</string>
+    <string name="empty_result">Data is empty</string>
+    <string name="box">Box</string>
+    <string name="Save">save</string>
+    <string name="new_product">New Poduct</string>
 </resources>

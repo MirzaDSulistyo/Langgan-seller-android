@@ -53,6 +53,34 @@ class UserRepository
         return data
     }
 
+    fun loginOwner(email: String, pass: String): LiveData<Resource<Auth>> {
+
+        val data = MutableLiveData<Resource<Auth>>()
+
+        appExecutors.networkIO().execute {
+            try {
+                val response = apiService.loginOwner(email, pass).execute()
+                val apiResponse = ApiResponse.create(response)
+
+                when (apiResponse) {
+                    is ApiSuccessResponse -> {
+                        data.postValue(Resource.success(apiResponse.body))
+                    }
+                    is ApiEmptyResponse -> {
+                        data.postValue(Resource.success(data = null))
+                    }
+                    is ApiErrorResponse -> {
+                        data.postValue(Resource.error(apiResponse.errorMessage, null))
+                    }
+                }
+            } catch (e: SocketTimeoutException) {
+                data.postValue(Resource.error("Socket Timeout", null))
+            }
+        }
+
+        return data
+    }
+
     fun register(first: String, last: String, email: String, pass: String, name: String): LiveData<Resource<Owner>> {
 
         val data = MutableLiveData<Resource<Owner>>()
