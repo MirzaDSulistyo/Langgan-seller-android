@@ -102,9 +102,6 @@ class ProductFragment : Fragment(), Injectable {
 
         binding.products = viewModel.products
         viewModel.products.observe(viewLifecycleOwner, Observer { result ->
-            Timber.d("status : %s", result.status)
-            Timber.d("message : %s", result.message)
-            Timber.d("message : ${result.data?.size}")
             adapter.submitList(result?.data)
             refresh_products.isRefreshing = false
         })

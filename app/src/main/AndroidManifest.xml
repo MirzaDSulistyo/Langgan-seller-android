@@ -41,7 +41,7 @@
                 android:theme="@style/AppTheme.Fullscreen"/>
         <activity
                 android:name=".ui.activity.MainActivity"
-                android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
+                android:theme="@style/MaterialDrawerTheme.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

@@ -1,15 +1,19 @@
 package id.langgan.android.seller.ui.fragment
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import id.langgan.android.seller.AppExecutors
 import id.langgan.android.seller.di.Injectable
@@ -27,6 +31,7 @@ import id.langgan.android.seller.ui.activity.FormBoxActivity
 import timber.log.Timber
 import kotlinx.android.synthetic.main.fragment_box.*
 import org.jetbrains.anko.startActivity
+import id.langgan.android.seller.data.vo.Status.SUCCESS
 
 class BoxFragment: Fragment(), Injectable {
 
@@ -45,6 +50,8 @@ class BoxFragment: Fragment(), Injectable {
     private var adapter by autoCleared<BoxAdapter>()
 
     private var auth: Auth? = null
+
+    private var boxes = ArrayList<Box>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +81,49 @@ class BoxFragment: Fragment(), Injectable {
             appExecutors = appExecutors
         ) {  box -> details(box) }
 
+        var isUserScrolling = false
+        var isListGoingUp = false
+
         binding.rvBoxes.adapter = rvAdapter
+        val linearLayoutManager = LinearLayoutManager(context)
+        binding.rvBoxes.layoutManager = linearLayoutManager
+        binding.rvBoxes.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
+                    Timber.d("TOP")
+                }
+
+                if (linearLayoutManager.findFirstVisibleItemPosition() == 0) {
+                    Timber.d("TOP 2")
+                }
+
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    isUserScrolling = true
+                    if (isListGoingUp) {
+                        //my recycler view is actually inverted so I have to write this condition instead
+                        if (linearLayoutManager.findLastCompletelyVisibleItemPosition() + 1 == boxes.size) {
+                            val handler = Handler()
+                            handler.postDelayed(Runnable {
+                                if (isListGoingUp) {
+                                    if (linearLayoutManager.findLastCompletelyVisibleItemPosition() + 1 == boxes.size) {
+                                        Toast.makeText(context, "execute something", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }, 50)
+                            //waiting for 50ms because when scrolling down from top, the variable isListGoingUp is still true until the onScrolled method is executed
+                        }
+                    }
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if(isUserScrolling){
+                    isListGoingUp = dy <= 0
+                }
+            }
+        })
         adapter = rvAdapter
 
         btn_add_box.setOnClickListener {
@@ -96,11 +145,11 @@ class BoxFragment: Fragment(), Injectable {
 
         binding.boxes = viewModel.boxes
         viewModel.boxes.observe(viewLifecycleOwner, Observer { result ->
-            Timber.d("status : %s", result.status)
-            Timber.d("message : %s", result.message)
-            Timber.d("message : ${result.data?.size}")
-            adapter.submitList(result?.data)
-            refresh_boxes.isRefreshing = false
+            if (result.status == SUCCESS) {
+                adapter.submitList(result?.data)
+                refresh_boxes.isRefreshing = false
+                boxes.addAll(result?.data!!)
+            }
         })
     }
 
