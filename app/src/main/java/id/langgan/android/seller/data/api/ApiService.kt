@@ -1,10 +1,8 @@
 package id.langgan.android.seller.data.api
 
 import androidx.lifecycle.LiveData
-import id.langgan.android.seller.model.Auth
-import id.langgan.android.seller.model.BoxList
-import id.langgan.android.seller.model.Owner
-import id.langgan.android.seller.model.ProductList
+import id.langgan.android.seller.model.*
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -43,6 +41,26 @@ interface ApiService {
         @Header("token") token: String,
         @Path("id") id: String
     ): LiveData<ApiResponse<ProductList>>
+
+    @POST("product/new")
+    fun postProduct(
+        @Header("token") token: String,
+        @Body body: RequestBody
+    ): Call<Product>
+
+    @FormUrlEncoded
+    @PUT("product/{id}")
+    fun putProduct(
+        @Header("token") token: String,
+        @Path("id") id: String,
+        @FieldMap fields: Map<String, String>
+    ): Call<Product>
+
+    @DELETE("product/{id}")
+    fun deleteProduct(
+        @Header("token") token: String,
+        @Path("id") id: String
+    ): Call<Product>
 
     /* ====== BOX ===== */
 

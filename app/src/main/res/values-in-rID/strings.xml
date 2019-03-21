@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Langgan Seller</string>
     <string name="logout">Logout</string>
@@ -26,6 +25,17 @@
     <string name="don_t_have_an_account">Don’t have an account?</string>
     <string name="empty_result">Data is empty</string>
     <string name="box">Box</string>
-    <string name="Save">save</string>
+    <string name="save">Save</string>
     <string name="new_product">New Poduct</string>
+    <string name="add_photo">Add photo</string>
+    <string name="photos">Photos</string>
+    <string name="price">Price</string>
+    <string name="descriptions">Descriptions</string>
+    <string name="brand">Brand</string>
+    <string name="sku">SKU</string>
+    <string name="product_name">Product name</string>
+
+    <string name="delete_messages">Are you sure to delete <b>%1$s</b> ?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -8,6 +8,7 @@ import id.langgan.android.seller.data.vo.Resource
 import id.langgan.android.seller.model.Product
 import id.langgan.android.seller.repository.ProductRepository
 import id.langgan.android.seller.utility.AbsentLiveData
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class ProductViewModel
@@ -49,4 +50,16 @@ class ProductViewModel
                 productRepository.getProducts(token, id.value!!)
             }
         }
+
+    fun saveProduct(token: String, body: RequestBody): LiveData<Resource<Product>> {
+        return productRepository.save(token, body)
+    }
+
+    fun updateProduct(token: String, id: String, fields: Map<String, String>): LiveData<Resource<Product>> {
+        return productRepository.update(token, id, fields)
+    }
+
+    fun deleteProduct(token: String, id: String): LiveData<Resource<Product>> {
+        return productRepository.delete(token, id)
+    }
 }

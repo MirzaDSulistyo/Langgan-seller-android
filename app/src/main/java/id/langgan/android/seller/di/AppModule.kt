@@ -22,12 +22,14 @@ class AppModule {
      * URLS
      */
     private val LOCAL = Vars.getLocale()
+    private val productionUrl = "https://tranquil-shore-53254.herokuapp.com/api/"
+    private val developmentUrl = "http://localhost:3000/api/"
 
     @Singleton
     @Provides
     fun provideApiService(): ApiService {
         return Retrofit.Builder()
-            .baseUrl("https://tranquil-shore-53254.herokuapp.com/api/")
+            .baseUrl(productionUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .build()

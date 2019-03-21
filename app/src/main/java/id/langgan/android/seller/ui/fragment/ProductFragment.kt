@@ -72,7 +72,7 @@ class ProductFragment : Fragment(), Injectable {
         val rvAdapter = ProductAdapter(
             dataBindingComponent = dataBindingComponent,
             appExecutors = appExecutors
-        ) {  product -> details(product) }
+        ) { product -> details(product) }
 
         binding.rvProducts.adapter = rvAdapter
         adapter = rvAdapter
@@ -80,6 +80,12 @@ class ProductFragment : Fragment(), Injectable {
         btn_add_product.setOnClickListener {
             activity?.startActivity<FormProductActivity>()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.refresh()
     }
 
     private fun initRecyclerView() {
@@ -106,6 +112,7 @@ class ProductFragment : Fragment(), Injectable {
 
     private fun details(product: Product) {
         Timber.d("product ${product.name}")
+        activity?.startActivity<FormProductActivity>("json" to Gson().toJson(product))
     }
 
     companion object {

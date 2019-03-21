@@ -2,9 +2,7 @@ package id.langgan.android.seller.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import id.langgan.android.seller.ui.activity.LoginActivity
-import id.langgan.android.seller.ui.activity.MainActivity
-import id.langgan.android.seller.ui.activity.RegisterActivity
+import id.langgan.android.seller.ui.activity.*
 
 @Suppress("unused")
 @Module
@@ -17,5 +15,11 @@ abstract class MainActivityModule {
 
     @ContributesAndroidInjector(modules = [FragmentBuildersModule::class])
     abstract fun contributeRegisterActivity(): RegisterActivity
+
+    @ContributesAndroidInjector(modules = [FragmentBuildersModule::class])
+    abstract fun contributeFormBoxActivity(): FormBoxActivity
+
+    @ContributesAndroidInjector(modules = [FragmentBuildersModule::class])
+    abstract fun contributeFormProductActivity(): FormProductActivity
 
 }

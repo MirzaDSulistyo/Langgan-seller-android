@@ -30,7 +30,7 @@
         </activity>
         <activity
                 android:name=".ui.activity.FormProductActivity"
-                android:theme="@style/MaterialDrawerTheme.Light">
+                android:theme="@style/AppTheme.Fullscreen">
         </activity>
         <activity
                 android:name=".ui.activity.RegisterActivity"

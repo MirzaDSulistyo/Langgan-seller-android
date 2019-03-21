@@ -50,8 +50,5 @@ class ProductAdapter(
     override fun bind(binding: ContentProductBinding, item: Product, position: Int) {
         binding.product = item
         binding.position = position
-
-        Timber.d("product ${item.createdAt}")
-        Timber.d("product ${item.updatedAt}")
     }
 }
