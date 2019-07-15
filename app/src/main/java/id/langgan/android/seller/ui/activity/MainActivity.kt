@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.amulyakhare.textdrawable.TextDrawable
 import com.google.gson.Gson
@@ -22,7 +23,6 @@ import id.langgan.android.seller.BuildConfig
 import id.langgan.android.seller.R
 import id.langgan.android.seller.di.Injectable
 import id.langgan.android.seller.model.Auth
-import id.langgan.android.seller.ui.fragment.ProductFragment
 import id.langgan.android.seller.ui.fragment.ProductTabFragment
 import id.langgan.android.seller.ui.fragment.ProfileFragment
 import id.langgan.android.seller.utility.ColorGenerator
@@ -37,12 +37,6 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
-//    @Inject
-//    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-//    @Inject
-//    lateinit var appExecutors: AppExecutors
-
     private var currentFragment: Fragment? = null
     private var mIsLargeLayout: Boolean = false
     private var mIsPortrait: Boolean = false
@@ -52,12 +46,9 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
         private const val NAV_MENU_ORDER = 2
         private const val NAV_MENU_DELIVERY = 3
         private const val NAV_MENU_PRODUCT = 4
-        private const val NAV_MENU_INVENTORY = 5
-        private const val NAV_MENU_CUSTOMER = 6
-        private const val NAV_MENU_STAFF = 7
-        private const val NAV_MENU_REVIEW = 8
-        private const val NAV_MENU_STORE = 9
-        private const val NAV_MENU_SETUP = 10
+        private const val NAV_MENU_REVIEW = 5
+        private const val NAV_MENU_STORE = 6
+        private const val NAV_MENU_SETUP = 7
 
         private const val NAV_MENU_PROFILE = 100
         private const val NAV_MENU_LOGOUT = 101
@@ -147,16 +138,13 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
             .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header;
 
         drawerBuilder.addDrawerItems(
-            PrimaryDrawerItem().withName(getString(R.string.home)).withIcon(FontAwesome.Icon.faw_dashcube).withIdentifier(NAV_MENU_HOME.toLong()).withSelectable(true),
-            PrimaryDrawerItem().withName(getString(R.string.order)).withIcon(FontAwesome.Icon.faw_calendar).withIdentifier(NAV_MENU_ORDER.toLong()).withSelectable(true),
-            PrimaryDrawerItem().withName(getString(R.string.delivery)).withIcon(FontAwesome.Icon.faw_inbox).withIdentifier(NAV_MENU_DELIVERY.toLong()).withSelectable(true),
-            PrimaryDrawerItem().withName(getString(R.string.product)).withIcon(FontAwesome.Icon.faw_dollar_sign).withIdentifier(NAV_MENU_PRODUCT.toLong()).withSelectable(true),
-            PrimaryDrawerItem().withName(getString(R.string.inventory)).withIcon(FontAwesome.Icon.faw_calendar).withIdentifier(NAV_MENU_INVENTORY.toLong()).withSelectable(true),
-            PrimaryDrawerItem().withName(getString(R.string.customers)).withIcon(FontAwesome.Icon.faw_users).withIdentifier(NAV_MENU_CUSTOMER.toLong()).withSelectable(true),
-            PrimaryDrawerItem().withName(getString(R.string.staff)).withIcon(FontAwesome.Icon.faw_user_friends).withIdentifier(NAV_MENU_STAFF.toLong()).withSelectable(true),
-            PrimaryDrawerItem().withName(getString(R.string.reviews)).withIcon(FontAwesome.Icon.faw_tag).withIdentifier(NAV_MENU_REVIEW.toLong()).withSelectable(true),
-            PrimaryDrawerItem().withName(getString(R.string.store)).withIcon(FontAwesome.Icon.faw_location_arrow).withIdentifier(NAV_MENU_STORE.toLong()).withSelectable(true),
-            PrimaryDrawerItem().withName(getString(R.string.settings)).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(NAV_MENU_SETUP.toLong()).withSelectable(true)
+            PrimaryDrawerItem().withName(getString(R.string.home)).withIcon(ContextCompat.getDrawable(this, R.drawable.ic_home)).withIdentifier(NAV_MENU_HOME.toLong()).withSelectable(true),
+            PrimaryDrawerItem().withName(getString(R.string.order)).withIcon(ContextCompat.getDrawable(this, R.drawable.ic_dollar_sign)).withIdentifier(NAV_MENU_ORDER.toLong()).withSelectable(true),
+            PrimaryDrawerItem().withName(getString(R.string.delivery)).withIcon(ContextCompat.getDrawable(this, R.drawable.ic_truck)).withIdentifier(NAV_MENU_DELIVERY.toLong()).withSelectable(true),
+            PrimaryDrawerItem().withName(getString(R.string.product)).withIcon(ContextCompat.getDrawable(this, R.drawable.ic_package)).withIdentifier(NAV_MENU_PRODUCT.toLong()).withSelectable(true),
+            PrimaryDrawerItem().withName(getString(R.string.reviews)).withIcon(ContextCompat.getDrawable(this, R.drawable.ic_message_square)).withIdentifier(NAV_MENU_REVIEW.toLong()).withSelectable(true),
+            PrimaryDrawerItem().withName(getString(R.string.store)).withIcon(ContextCompat.getDrawable(this, R.drawable.ic_map_pin)).withIdentifier(NAV_MENU_STORE.toLong()).withSelectable(true),
+            PrimaryDrawerItem().withName(getString(R.string.settings)).withIcon(ContextCompat.getDrawable(this, R.drawable.ic_settings)).withIdentifier(NAV_MENU_SETUP.toLong()).withSelectable(true)
         )
 
         drawerBuilder.withOnDrawerItemClickListener { _, _, drawerItem ->
@@ -186,27 +174,6 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
                     NAV_MENU_PRODUCT -> {
                         supportActionBar!!.title = getString(R.string.product)
                         val fragment = ProductTabFragment.newInstance()
-                        supportFragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()
-
-                        currentFragment = fragment
-                    }
-                    NAV_MENU_INVENTORY -> {
-                        supportActionBar!!.title = getString(R.string.inventory)
-                        val fragment = ProfileFragment.newInstance()
-                        supportFragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()
-
-                        currentFragment = fragment
-                    }
-                    NAV_MENU_CUSTOMER -> {
-                        supportActionBar!!.title = getString(R.string.customers)
-                        val fragment = ProfileFragment.newInstance()
-                        supportFragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()
-
-                        currentFragment = fragment
-                    }
-                    NAV_MENU_STAFF -> {
-                        supportActionBar!!.title = getString(R.string.staff)
-                        val fragment = ProfileFragment.newInstance()
                         supportFragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()
 
                         currentFragment = fragment

@@ -38,4 +38,7 @@
     <string name="delete_messages">Are you sure to delete <b>%1$s</b> ?</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
+    <string name="box_name">Box Name</string>
+    <string name="products">Products</string>
+    <string name="add_products">Add products</string>
 </resources>
